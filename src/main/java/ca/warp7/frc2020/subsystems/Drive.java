@@ -11,13 +11,13 @@ import edu.wpi.first.wpilibj2.command.Subsystem;
 
 public class Drive implements Subsystem {
 
-    private static Drive drive;
+    private static Drive instance;
 
     public static Drive getInstance() {
-        if (drive == null) {
-            drive = new Drive();
+        if (instance == null) {
+            instance = new Drive();
         }
-        return drive;
+        return instance;
     }
 
     private Drive() {
