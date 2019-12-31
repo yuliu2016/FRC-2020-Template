@@ -7,25 +7,20 @@
 
 package ca.warp7.frc2020.commands;
 
-import ca.warp7.frc2020.subsystems.ExampleSubsystem;
+import ca.warp7.frc2020.subsystems.Drive;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
 /**
 * An example command that uses an example subsystem.
 */
-public class ExampleCommand extends CommandBase {
-    @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
-    private final ExampleSubsystem m_subsystem;
+public class DriveCommand extends CommandBase {
     
     /**
-    * Creates a new ExampleCommand.
-    *
-    * @param subsystem The subsystem used by this command.
+    * Creates a new DriveCommand
     */
-    public ExampleCommand(ExampleSubsystem subsystem) {
-        m_subsystem = subsystem;
+    public DriveCommand() {
         // Use addRequirements() here to declare subsystem dependencies.
-        addRequirements(m_subsystem);
+        addRequirements(Drive.getInstance());
     }
     
     // Called when the command is initially scheduled.

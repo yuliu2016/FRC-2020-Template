@@ -7,18 +7,20 @@
 
 package ca.warp7.frc2020.subsystems;
 
-import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import edu.wpi.first.wpilibj2.command.Subsystem;
 
-public class ExampleSubsystem extends SubsystemBase {
-    /**
-    * Creates a new ExampleSubsystem.
-    */
-    public ExampleSubsystem() {
-        
+public class Drive implements Subsystem {
+
+    private static Drive drive;
+
+    public static Drive getInstance() {
+        if (drive == null) {
+            drive = new Drive();
+        }
+        return drive;
     }
-    
-    @Override
-    public void periodic() {
-        // This method will be called once per scheduler run
+
+    private Drive() {
+
     }
 }
