@@ -7,7 +7,8 @@
 
 package ca.warp7.frc2020;
 
-import ca.warp7.frc2020.subsystems.Drive;
+import ca.warp7.frc2020.commands.TeleopCommand;
+import ca.warp7.frc2020.subsystems.DriveTrain;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 
@@ -25,7 +26,7 @@ public class Robot extends TimedRobot {
     */
     @Override
     public void robotInit() {
-        Drive.getInstance().register();
+        DriveTrain.getInstance().register();
     }
     
     /**
@@ -70,6 +71,7 @@ public class Robot extends TimedRobot {
     @Override
     public void teleopInit() {
         CommandScheduler.getInstance().cancelAll();
+        new TeleopCommand().schedule();
     }
     
     /**

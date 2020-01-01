@@ -16,4 +16,11 @@ package ca.warp7.frc2020;
 * constants are needed, to reduce verbosity.
 */
 public final class Constants {
+    // CAN IDs
+
+    public static final int kLeftMaster = 0;
+    public static final int kLeftFollower = 1;
+
+    public static final int kRightMaster = 2;
+    public static final int kRightFollower = 3;
 }
