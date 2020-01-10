@@ -27,6 +27,14 @@ public enum ButtonState {
         return this == None;
     }
 
+    public boolean isUp() {
+        return isReleased() || isKeptUp();
+    }
+
+    public boolean isDown() {
+        return isPressed() || isHeldDown();
+    }
+
     /**
      * Update a ButtonState based on an old state and a new value
      *
