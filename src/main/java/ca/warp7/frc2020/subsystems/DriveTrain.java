@@ -38,7 +38,7 @@ public class DriveTrain implements Subsystem {
                 35.0,
                 40.0,
                 1.0
-        ));
+        ), 50);
         return master;
     }
 

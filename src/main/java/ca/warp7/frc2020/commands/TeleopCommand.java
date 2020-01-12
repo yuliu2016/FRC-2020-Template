@@ -3,7 +3,6 @@ package ca.warp7.frc2020.commands;
 import ca.warp7.frc2020.lib.XboxControllerHelper;
 import ca.warp7.frc2020.subsystems.DriveTrain;
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import edu.wpi.first.wpiutil.math.MathUtil;
 
 public class TeleopCommand extends CommandBase {
 
@@ -22,12 +21,6 @@ public class TeleopCommand extends CommandBase {
         operator.collectControllerData();
 
         curvatureDrive();
-    }
-
-    @Override
-    public void end(boolean interrupted) {
-        driver.reset();
-        operator.reset();
     }
 
     private void curvatureDrive() {

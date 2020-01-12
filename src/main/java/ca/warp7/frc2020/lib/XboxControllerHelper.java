@@ -1,9 +1,10 @@
 package ca.warp7.frc2020.lib;
 
+import edu.wpi.first.hal.FRCNetComm;
+import edu.wpi.first.hal.HAL;
 import edu.wpi.first.wpilibj.DriverStation;
 
 import static ca.warp7.frc2020.lib.ButtonState.None;
-import static ca.warp7.frc2020.lib.ButtonState.update;
 
 /**
  * Handle input from Xbox 360 or Xbox One controllers connected to the Driver Station.
@@ -49,6 +50,8 @@ public class XboxControllerHelper {
      */
     public XboxControllerHelper(int port) {
         this.port = port;
+
+        HAL.report(FRCNetComm.tResourceType.kResourceType_XboxController, port + 1);
     }
 
     /**
@@ -62,30 +65,30 @@ public class XboxControllerHelper {
         int axisCount = ds.getStickAxisCount(port);
 
         if (buttonCount >= 10 && axisCount > 5) {
-            int buttons      = ds.getStickButtons(port);
+            int buttons      = ds               .getStickButtons(port);
 
-            aButton          = update(aButton,          (buttons & 1     ) != 0);
-            bButton          = update(bButton,          (buttons & 1 << 1) != 0);
-            xButton          = update(xButton,          (buttons & 1 << 2) != 0);
-            yButton          = update(yButton,          (buttons & 1 << 3) != 0);
+            aButton          = aButton          .update((buttons & 1     ) != 0);
+            bButton          = bButton          .update((buttons & 1 << 1) != 0);
+            xButton          = xButton          .update((buttons & 1 << 2) != 0);
+            yButton          = yButton          .update((buttons & 1 << 3) != 0);
 
-            leftBumper       = update(leftBumper,       (buttons & 1 << 4) != 0);
-            rightBumper      = update(rightBumper,      (buttons & 1 << 5) != 0);
+            leftBumper       = leftBumper       .update((buttons & 1 << 4) != 0);
+            rightBumper      = rightBumper      .update((buttons & 1 << 5) != 0);
 
-            backButton       = update(backButton,       (buttons & 1 << 6) != 0);
-            startButton      = update(startButton,      (buttons & 1 << 7) != 0);
+            backButton       = backButton       .update((buttons & 1 << 6) != 0);
+            startButton      = startButton      .update((buttons & 1 << 7) != 0);
 
-            leftStickButton  = update(leftStickButton,  (buttons & 1 << 8) != 0);
-            rightStickButton = update(rightStickButton, (buttons & 1 << 9) != 0);
+            leftStickButton  = leftStickButton  .update((buttons & 1 << 8) != 0);
+            rightStickButton = rightStickButton .update((buttons & 1 << 9) != 0);
 
-            leftX            = ds.getStickAxis(port, 0);
-            rightX           = ds.getStickAxis(port, 1);
+            leftX            = ds               .getStickAxis(port, 0);
+            rightX           = ds               .getStickAxis(port, 1);
 
-            leftTrigger      = ds.getStickAxis(port, 2);
-            rightTrigger     = ds.getStickAxis(port, 3);
+            leftTrigger      = ds               .getStickAxis(port, 2);
+            rightTrigger     = ds               .getStickAxis(port, 3);
 
-            leftY            = ds.getStickAxis(port, 4);
-            rightY           = ds.getStickAxis(port, 5);
+            leftY            = ds               .getStickAxis(port, 4);
+            rightY           = ds               .getStickAxis(port, 5);
 
         } else {
             if (!unplugReported) {
@@ -94,35 +97,5 @@ public class XboxControllerHelper {
                         "is not plugged in", false);
             }
         }
-    }
-
-    /**
-     * Reset all the controller data
-     */
-    public void reset() {
-        aButton          = None;
-        bButton          = None;
-        xButton          = None;
-        yButton          = None;
-
-        leftBumper       = None;
-        rightBumper      = None;
-
-        leftStickButton  = None;
-        rightStickButton = None;
-
-        backButton       = None;
-        startButton      = None;
-
-        leftTrigger      = 0.0;
-        rightTrigger     = 0.0;
-
-        leftX            = 0.0;
-        leftY            = 0.0;
-
-        rightX           = 0.0;
-        rightY           = 0.0;
-
-        unplugReported   = false;
     }
 }
