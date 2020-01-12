@@ -19,6 +19,8 @@ import edu.wpi.first.wpilibj2.command.CommandScheduler;
 * project.
 */
 public class Robot extends TimedRobot {
+
+    private final CommandScheduler scheduler = CommandScheduler.getInstance();
     
     /**
     * This function is run when the robot is first started up and should be used for any
@@ -26,7 +28,11 @@ public class Robot extends TimedRobot {
     */
     @Override
     public void robotInit() {
-        DriveTrain.getInstance().register();
+        System.out.println("Hello me is robit!");
+        // Register all the subsystems
+        scheduler.registerSubsystem(
+                DriveTrain.getInstance()
+        );
     }
     
     /**
@@ -42,7 +48,7 @@ public class Robot extends TimedRobot {
         // commands, running already-scheduled commands, removing finished or interrupted commands,
         // and running subsystem periodic() methods.  This must be called from the robot's periodic
         // block in order for anything in the Command-based framework to work.
-        CommandScheduler.getInstance().run();
+        scheduler.run();
     }
     
     /**
@@ -50,6 +56,7 @@ public class Robot extends TimedRobot {
     */
     @Override
     public void disabledInit() {
+        scheduler.cancelAll();
     }
     
     @Override
@@ -58,7 +65,7 @@ public class Robot extends TimedRobot {
 
     @Override
     public void autonomousInit() {
-        CommandScheduler.getInstance().cancelAll();
+        scheduler.cancelAll();
     }
     
     /**
@@ -70,8 +77,8 @@ public class Robot extends TimedRobot {
     
     @Override
     public void teleopInit() {
-        CommandScheduler.getInstance().cancelAll();
-        new TeleopCommand().schedule();
+        scheduler.cancelAll();
+        scheduler.schedule(new TeleopCommand());
     }
     
     /**
@@ -84,7 +91,7 @@ public class Robot extends TimedRobot {
     @Override
     public void testInit() {
         // Cancels all running commands at the start of test mode.
-        CommandScheduler.getInstance().cancelAll();
+        scheduler.cancelAll();
     }
     
     /**
